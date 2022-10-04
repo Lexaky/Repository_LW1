@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1664334179 source:a:\projectscodeblocks\stringmod\main.cpp
+	<iostream>
+	<string>
+
