@@ -1,0 +1,195 @@
+#include <iostream>
+#include <vector>
+#include <fstream>
+
+class man
+{
+private:
+    char *firstName; //Имя
+    char *surName; //Фамилия
+    char *message; //Мысль
+    unsigned short int age; //Возраст человека
+
+public:
+man(char *i, char *f, unsigned short int a)
+{
+    firstName = i;
+    surName = f;
+    age = a;
+    message = "";
+    std::cout << "Man " << firstName << " " << surName << " " << age << " years old was created" << std::endl;
+}
+man (char *i, char *f, unsigned short int a, char *thought)
+{
+    firstName = i;
+    surName = f;
+    age = a;
+    message = thought;
+    std::cout << "Man " << firstName << " " << surName << " " << age << " years old was created and said: " << message << std::endl;
+}
+
+    char* getFirstName()
+    {
+        return firstName;
+    }
+    char* getSurName()
+    {
+        return surName;
+    }
+    int getAge()
+    {
+        return age;
+    }
+
+    void setFirstName(char* _firstName)
+    {
+        firstName = _firstName;
+    }
+    void setSurName(char* _surName)
+    {
+        surName = _surName;
+    }
+    void setAge(int a)
+    {
+        age = a;
+    }
+
+    void remember() // Запоминает данные, ведённые в консоль
+    {
+        std::cin >> message;
+    }
+    char* talk() // Говорит то, что запомнил
+    {
+        return message;
+    }
+
+    static void staticMan()
+    {
+        std::cout << "You have addressed the class Man!" << std::endl;
+    }
+
+};
+
+class house
+{
+private:
+    unsigned int number;
+    std::vector <man> citizenList;
+    int countCitizen = 0;
+
+    public:
+        house() { //Constructor#1
+            greeting();
+            number = 0;
+        }
+        house(unsigned int houseNumber)//Constructor#2
+        {
+            greeting();
+            number = houseNumber;
+        }
+        house(unsigned int houseNumber, std::vector<man> citizens)//Constructor#3
+        {
+            greeting();
+            number = houseNumber;
+            citizenList = citizens;
+        }
+        house (std::vector<man> citizens)//Constructor#4
+        {
+            greeting();
+            citizenList = citizens;
+            number = 0;
+        }
+
+        void greeting() //Приветствие
+        {
+            std::cout << "House was created!" << std::endl;
+        }
+
+
+        void addCitizen(man person) //Добавить жителя в дом
+        {
+            countCitizen++;
+            citizenList.push_back(person);
+        }
+
+        bool isHeLiveHere(man person) //Проверка живёт ли объект person типа man в данном доме
+        {
+            for(int i = 0; i <= countCitizen; i++)
+            {
+                if (citizenList[i].getAge() == person.getAge() && citizenList[i].getFirstName() == person.getFirstName() && citizenList[i].getSurName() == person.getSurName()) return true;
+            }
+            return false;
+        }
+
+        void getList() //Получение списка имён жильцов данного дома
+        {
+            std::cout << "In house live: " << std::endl;
+            for (int i = 0; i < countCitizen; i++)
+            {
+                std::cout << citizenList[i].getFirstName() << std::endl;
+            }
+        }
+
+        static void staticHouse()
+            {
+        std::cout << "You have addressed the class House!" << std::endl;
+            }
+
+        int getCounts() //Получить количество жильцов в доме
+        {
+            return countCitizen;
+        }
+
+        unsigned int getAdress() //Получить адресс дома
+        {
+            return number;
+        }
+
+};
+
+int main()
+{
+    setlocale(LC_ALL, "rus");
+    //getline -> arrays of string + pointers
+    //cin -> console input obj
+
+    char name[] = "Alexey";
+    char surName[] = "Streltsov";
+    man Alex = man(name, surName, 27);
+    Alex.setAge(27);
+
+
+    man Jack = man("Jack", "Piterson", 33);
+    std::cout << Alex.getAge() << std::endl;
+
+    man Rick = man("Rick", "Swift", 55, "What do you know about this people?");
+    std::cout << Rick.talk() << std::endl;
+
+    house Miami = house(120);
+    Miami.addCitizen(Jack);
+    Miami.addCitizen(Alex);
+
+
+
+    std::cout << Miami.isHeLiveHere(Rick) << std::endl;
+
+    std::cout << Miami.getCounts() << std::endl;
+
+    std::cout << Miami.getAdress() << std::endl;
+
+    //Miami.getList();
+
+    return 0;
+}
+
+/*
+
+#ifndef MY_HEADER
+#define MY_HEADER //Может быть ситуация, что файл header объявлён несколько раз, тогда
+    //каждое обращение к файлу во время реализации подтягивается header.
+    //эти директивы говорят о том, что если реализации с таким именем не определена, то мы
+    //её определяем.
+#endif // MY_HEADER
+
+*/
+
