@@ -176,7 +176,7 @@ int main()
     std::cout << Miami.getCounts() << std::endl;
 
     std::cout << Miami.getAdress() << std::endl;
-Ко
+
     //Miami.getList();
 
     return 0;
